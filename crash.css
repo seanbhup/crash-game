@@ -1,0 +1,14 @@
+html {
+	background: #518898;
+	color: white;
+}
+
+body {
+	text-align: center;
+	margin-top: 100px;
+}
+
+#title {
+	font-size: 60px;
+	color: #98bf69;
+	font-weight: bold;
