@@ -19,7 +19,7 @@ var heroLoc = {
 };
 
 var monster = new Image(); //actually a fruit right now
-monster.src = "wumpa-fruit-normal.png"; //FIND MONSTER PICTURE
+monster.src = "boo.png"; //FIND MONSTER PICTURE
 var monsterLoc = {
 	x: 1200,
 	y: 500,
@@ -27,8 +27,37 @@ var monsterLoc = {
 	monsterLocNewY: 500
 };
 
+var tree = new Image();
+tree.src = "wall.png";
+var treeLoc = {
+	x: 15,
+	y: 500
+};
+
+var tree2 = new Image();
+tree2.src = "wall.png";
+var tree2Loc = {
+	x: 80,
+	y: 500
+};
+var tree3 = new Image();
+tree3.src = "wall.png";
+var tree3Loc = {
+	x: 145,
+	y: 500
+};
+var tree4 = new Image();
+tree4.src = "wall.png";
+var tree4Loc = {
+	x: 210,
+	y: 500
+};
+
+
 var monsterDestX = Math.floor(Math.random() * 880);
 var monsterDestY = Math.floor(Math.random() * 880);
+var treeDestX = 275
+var treeDestY = 0
 
 var currentPlayerScore = 0;
 var highScore = 0;
@@ -106,10 +135,19 @@ function update(){
 		}
 	}
 	//change the 32s if want to change the hero/monster size
-	if((heroLoc.x <= monsterLoc.x + 32) &&
-		(heroLoc.y <= monsterLoc.y + 32) &&
-		(monsterLoc.x <= heroLoc.x + 32) &&
-		(monsterLoc.y <= heroLoc.y + 32)){
+	//THIS MAKES IT SO YOU CANT PASS THROUGH
+	if((heroLoc.x <= treeLoc.x + 48) &&
+		(heroLoc.y <= treeLoc.y + 48) &&
+		(treeLoc.x <= heroLoc.x + 48) &&
+		(treeLoc.y <= heroLoc.y + 48) &&
+		keysPressed){
+		heroLoc.x = heroLoc.x - 10;
+		heroLoc.y = heroLoc.y - 10;
+	}
+	if((heroLoc.x <= monsterLoc.x + 48) &&
+		(heroLoc.y <= monsterLoc.y + 48) &&
+		(monsterLoc.x <= heroLoc.x + 48) &&
+		(monsterLoc.y <= heroLoc.y + 48)){
 			console.log("HERO CAUGHT A MONSTER");
 
 			currentPlayerScore++
@@ -137,8 +175,8 @@ function update(){
 //3. change the 3 if you want speed mod to change faster or slower
 	//for each direction
 function monsterMove (){
-	if((Math.abs(monsterDestX - monsterLoc.x)) < 32 &&
-		(Math.abs(monsterDestY - monsterLoc.y)) < 32){
+	if((Math.abs(monsterDestX - monsterLoc.x)) < 48 &&
+		(Math.abs(monsterDestY - monsterLoc.y)) < 48){
 		monsterDestX = Math.floor(Math.random() * 440);
 		monsterDestY = Math.floor(Math.random() * 440);
 	}else{
@@ -155,6 +193,17 @@ function monsterMove (){
 			monsterLoc.y -= Math.ceil(Math.random() * 5);
 		}
 	}
+	//UNCOMMENT IF YOU WANT THE TREE TO MOVE
+	if((Math.abs(treeDestX - treeLoc.x)) < 48){
+		treeDestX = Math.floor(Math.random() * 250);
+	}else{
+		if (treeDestX > treeLoc.x){
+			treeLoc.x += Math.ceil(Math.random() * 3);
+		}
+		if (treeDestX < treeLoc.x){
+			treeLoc.x -= Math.ceil(Math.random() * 3);
+		}
+	}
 }
 
 function draw(){
@@ -165,6 +214,11 @@ function draw(){
 	context.drawImage(backgroundImage, 0,0);
 	context.drawImage(hero, heroLoc.x, heroLoc.y);
 	context.drawImage(monster, monsterLoc.x, monsterLoc.y);
+	context.drawImage(tree, treeLoc.x, treeLoc.y)
+	context.drawImage(tree2, tree2Loc.x, tree2Loc.y)
+	context.drawImage(tree3, tree3Loc.x, tree3Loc.y)
+	context.drawImage(tree4, tree4Loc.x, tree4Loc.y)
+
 	requestAnimationFrame(draw);
 }
 
